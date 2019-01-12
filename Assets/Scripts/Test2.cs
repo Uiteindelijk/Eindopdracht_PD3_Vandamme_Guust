@@ -1,26 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Test2 : MonoBehaviour
 {
-
-    public Transform Target;
-    public Vector3 Offset;
-    public Animator Anim;
-
-    private Transform _chest; 
-
-	void Start ()
+    //to move charlie with nav mesh
+    public Camera Cam;
+    public NavMeshAgent Agent;
+    private bool _npcIsMoving = false;
+    private Animator _anim;
+    
+    private void Start()
     {
-        _chest = Anim.GetBoneTransform(HumanBodyBones.Chest);
-	}
-	
-	void LateUpdate ()
+        _anim = transform.GetComponent<Animator>();
+        
+    }
+
+    void Update()
     {
+        MovingCharlie();
+    }
 
-        _chest.LookAt(Target.position);
-        _chest.rotation = _chest.rotation * Quaternion.Euler(Offset);
+    void MovingCharlie()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            //Debug.Log("Charlie has new order");
 
-	}
+            if (Physics.Raycast(ray, out hit))
+            {
+                //move charlie
+                Agent.SetDestination(hit.point);
+                //Debug.Log("Charlie is moving");
+            }
+
+        }
+    }
+    
 }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Test
+  - Box
+  - Enemy
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Object
   - 
   - 
   - 
