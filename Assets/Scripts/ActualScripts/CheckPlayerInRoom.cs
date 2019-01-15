@@ -11,11 +11,17 @@ public class CheckPlayerInRoom : MonoBehaviour
     //vars for room patroll
     private bool _isRoomChecked = false;
     private int _patrollCounter = 0;
-    public Transform[] _patrollPoints;
+    public Transform[] PatrollPoints;
     
     private void Update()
     {
-        //to check if the player or other npc is in the room
+        CheckRoomForPlayerAndNpc();
+        PatrolStatus();
+    }
+    
+    //to check if the player and npc are toghetter in room
+    private void CheckRoomForPlayerAndNpc()
+    {
         if (_playerIsInRoom && _npcIsInRoom)
         {
             //Debug.Log("enemy en player are in room: " + gameObject.name);
@@ -29,41 +35,44 @@ public class CheckPlayerInRoom : MonoBehaviour
         {
             _npc = null;
         }
+    }
 
-        //patroll stuf
+    //to check if the npc has to patrol the room
+    private void PatrolStatus()
+    {
         if (_npcIsInRoom && !_isRoomChecked && !_playerIsInRoom)
         {
             PatrolRoom();
         }
 
-        if(_isRoomChecked && _npcIsInRoom)
+        if (_isRoomChecked && _npcIsInRoom)
         {
             _npc.GetComponent<EnemyAi>().RoomChecked = true;
             //_isRoomChecked = false; //remove later
         }
 
-        if(!_npcIsInRoom)
+        if (!_npcIsInRoom)
         {
             _isRoomChecked = false;
         }
-
     }
-    
-    void PatrolRoom()
+
+    //if npc still needs to patroll the room
+    private void PatrolRoom()
     {
         //the npc know now that the room isn't checked
         _npc.GetComponent<EnemyAi>().RoomChecked = false;
 
         //we give the npc next point to move to
-        _npc.GetComponent<EnemyAi>().NextPatrolPoint = _patrollPoints[_patrollCounter];
-        float distance = Vector3.Distance(_npc.position, _patrollPoints[_patrollCounter].position);
+        _npc.GetComponent<EnemyAi>().NextPatrolPoint = PatrollPoints[_patrollCounter];
+        float distance = Vector3.Distance(_npc.position, PatrollPoints[_patrollCounter].position);
         
         if (distance < 0.5f)
         {
             _patrollCounter++;
         }
 
-        if(_patrollCounter >= _patrollPoints.Length)
+        if(_patrollCounter >= PatrollPoints.Length)
         {
             _isRoomChecked = true;
             _patrollCounter = 0;
@@ -71,24 +80,28 @@ public class CheckPlayerInRoom : MonoBehaviour
         
     }
     
+    //checks if there is an npc or player in the room
     void OnTriggerStay(Collider other)
     {
-        //to check who is in the room
+        //to check for player
         if (other.tag == "Player")
         {
             _playerIsInRoom = true;
         }
 
+        //to check for npc and not a second npc
         if (other.tag == "Enemy" && !_npcIsInRoom)
         {
+            //Debug.Log(_npc + "Enemy is in room: " + gameObject.name);
             _npcIsInRoom = true;
             _npc = other.transform;
             other.GetComponent<EnemyAi>().AlreadyNpcInRoom = false;
-            //Debug.Log(_npc + "Enemy is in room: " + gameObject.name);
+            
         }
         
     }
-
+    
+    //if a second npc enters the room
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy" && _npcIsInRoom)
@@ -99,6 +112,7 @@ public class CheckPlayerInRoom : MonoBehaviour
         
     }
 
+    //if the player or npc leave the room
     private void OnTriggerExit(Collider other)
     {
         //to check who is leaving the room

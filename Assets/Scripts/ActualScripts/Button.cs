@@ -5,9 +5,23 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
     private float _counter = 0;
-    [HideInInspector] public bool ButtonStatus = false;
+    public bool ButtonStatus { get; set; }
 
     private void Update()
+    {
+        ButtonState();
+    }
+
+    //when the button gets pressed
+    public void ButtonPressed()
+    {
+        _counter++;
+        ButtonLightSwitch lamp = this.transform.GetComponentInChildren<ButtonLightSwitch>();
+        lamp.ChangeTexture();
+    }
+
+    //checking the state of the button
+    private void ButtonState()
     {
         if (_counter == 1)
         {
@@ -19,14 +33,6 @@ public class Button : MonoBehaviour
             _counter = 0;
             ButtonStatus = false;
         }
-
     }
 
-    public void ButtonPressed()
-    {
-        _counter++;
-        ButtonLightSwitch lamp = this.transform.GetComponentInChildren<ButtonLightSwitch>();
-        lamp.ChangeTexture();
-    }
-    
 }

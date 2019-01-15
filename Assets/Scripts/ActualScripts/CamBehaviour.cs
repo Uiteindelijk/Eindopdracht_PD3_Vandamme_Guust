@@ -6,7 +6,7 @@ public class CamBehaviour : MonoBehaviour {
 
     public Transform Target;
 
-    void Update()
+    private void Update()
     {
         //so the cam follows the position but not the rotation
         this.transform.position = Target.position;

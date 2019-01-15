@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aaa1c506318912847ab71c4fba779bff
+guid: f229f16ca83b7814d82d5a4b32e8500f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -139,7 +139,7 @@ ModelImporter:
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
     400134: //RootNode
-    7400000: EnemyDeath
+    7400000: PlayerWinAnimation
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -170,25 +170,25 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: EnemyDeath
+      name: PlayerWinAnimation
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 57
+      lastFrame: 123
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

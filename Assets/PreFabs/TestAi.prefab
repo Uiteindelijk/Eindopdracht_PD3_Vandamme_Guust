@@ -9,49 +9,49 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1841193343263508}
+  m_RootGameObject: {fileID: 1091677036537324}
   m_IsPrefabAsset: 1
---- !u!1 &1841193343263508
+--- !u!1 &1091677036537324
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4750497230513588}
-  - component: {fileID: 33108603627826144}
-  - component: {fileID: 23519715140442156}
-  - component: {fileID: 143038486458835820}
-  - component: {fileID: 114684939411287648}
-  - component: {fileID: 195092361367472564}
-  - component: {fileID: 114769284045468710}
-  - component: {fileID: 114286390591755306}
+  - component: {fileID: 4730788946497338}
+  - component: {fileID: 33411756091156094}
+  - component: {fileID: 23712737900962850}
+  - component: {fileID: 143626387357373066}
+  - component: {fileID: 195872281807035414}
+  - component: {fileID: 114270081196101774}
+  - component: {fileID: 95702312696747366}
+  - component: {fileID: 114777635996757590}
   m_Layer: 0
   m_Name: TestAi
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4750497230513588
+  m_IsActive: 0
+--- !u!4 &4730788946497338
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.81, y: 0.81, z: 14.78}
+  m_GameObject: {fileID: 1091677036537324}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.27, y: 0.6, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23519715140442156
+--- !u!23 &23712737900962850
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,85 +81,99 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33108603627826144
+--- !u!33 &33411756091156094
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114286390591755306
+--- !u!95 &95702312696747366
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091677036537324}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114270081196101774
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fb9342689bb07b46a1a1e61eac7f8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cam: {fileID: 0}
-  Agent: {fileID: 195092361367472564}
+  NpcIsSpotted: 0
+  Rooms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   PlayerInRoom: 0
---- !u!114 &114684939411287648
+  StillInSameRoom: 0
+  _stabDamage: 25
+  AlreadyNpcInRoom: 0
+  RoomChecked: 0
+  NextPatrolPoint: {fileID: 0}
+  NpcIsMovingRoom: 0
+  TestRangeDink: 0
+--- !u!114 &114777635996757590
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94fc3ae2da137794c9cefc44ff613b49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cam: {fileID: 0}
-  Agent: {fileID: 195092361367472564}
-  Room: {fileID: 0}
-  PlayerInRoom: 0
-  NpcIsInRoom: 0
---- !u!114 &114769284045468710
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524f570d7a263d5419f94ebf62d60671, type: 3}
+  m_Script: {fileID: 11500000, guid: 17da9bc5392ad314e8209cada22f209d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cam: {fileID: 0}
-  Agent: {fileID: 195092361367472564}
---- !u!143 &143038486458835820
+  _lives: 100
+--- !u!143 &143626387357373066
 CharacterController:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
+  m_Height: 1.2
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
---- !u!195 &195092361367472564
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195872281807035414
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841193343263508}
+  m_GameObject: {fileID: 1091677036537324}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 64
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -168,4 +182,4 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2

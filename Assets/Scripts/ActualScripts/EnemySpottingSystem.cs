@@ -23,6 +23,7 @@ public class EnemySpottingSystem : MonoBehaviour
 
     }
 
+    //to check if the enemy is in eye sight
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Enemy")
@@ -37,8 +38,8 @@ public class EnemySpottingSystem : MonoBehaviour
             {
                 //kijken of er een object tussen de speler en enemy zit
                 RaycastHit hit;
-                Debug.DrawRay(transform.position, direction * _range, Color.blue);
-                if (Physics.Raycast(transform.position, direction, out hit, _range))
+                Debug.DrawRay(transform.position, new Vector3(direction.x, direction.y +0.5f, direction.z) * _range, Color.blue);
+                if (Physics.Raycast(transform.position, new Vector3(direction.x, direction.y + 0.5f, direction.z), out hit, _range))
                 {
                     //Debug.Log("raycast is hitting: " + hit.transform.name);
                     if (hit.transform.tag == "Enemy")

@@ -10,6 +10,19 @@ public class FinalSystem : MonoBehaviour
 
     private void Start()
     {
+        SetArraysRight();
+        GetChildObjectsForArray();
+    }
+
+    private void Update()
+    {
+        DoorAndBoxStates();
+        OpenDoorCondition();
+    }
+
+    //to set the numbers right of the array
+    private void SetArraysRight()
+    {
         _buttons = new Transform[ButtonInteractbles];
         _boxes = new Transform[BoxInteractbles];
         _doors = new Transform[Doors];
@@ -17,7 +30,11 @@ public class FinalSystem : MonoBehaviour
         _button = new bool[ButtonInteractbles];
         _box = new bool[BoxInteractbles];
         _door = new bool[Doors];
+    }
 
+    //to get the child objects
+    private void GetChildObjectsForArray()
+    {
         for (int i = 0; i < ButtonInteractbles; i++)
         {
             _buttons[i] = transform.GetChild(i);
@@ -35,10 +52,10 @@ public class FinalSystem : MonoBehaviour
             _doors[i] = transform.GetChild(i + ButtonInteractbles + BoxInteractbles);
             //Debug.Log(_doors[i].name);
         }
-
     }
 
-    private void Update()
+    //to get the states of the buttons and boxes
+    private void DoorAndBoxStates()
     {
         for (int i = 0; i < ButtonInteractbles; i++)
         {
@@ -51,10 +68,14 @@ public class FinalSystem : MonoBehaviour
             _box[i] = _boxes[i].GetComponent<PlaceBoxOnRightPlace>()._boxOnPlace;
             //Debug.Log(_boxes[i].name + " " + _box[i]);
         }
+    }
 
+    //to check if the right combo is active
+    private void OpenDoorCondition()
+    {
         for (int i = 0; i < Doors; i++)
         {
-            
+
 
             if (_button[0] && !_button[1] && _button[2] && _button[3] && _box[0])
             {
@@ -65,7 +86,6 @@ public class FinalSystem : MonoBehaviour
                 _doors[i].gameObject.active = true;
             }
         }
-
     }
 
 }

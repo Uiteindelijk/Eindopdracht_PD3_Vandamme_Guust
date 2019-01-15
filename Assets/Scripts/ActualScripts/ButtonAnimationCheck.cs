@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class ButtonAnimationCheck : MonoBehaviour
 {
-    public bool ButtonPressAnim = false;
+    public bool ButtonPressAnim { get; set; }
     private int _counter;
 
-    //the check if the animation has ended of pressing a button
-    public void StartButtonPress()
+    private void Start()
+    {
+        ButtonPressAnim = false;
+    }
+
+    //the animation has ended
+    private void StartButtonPress()
     {
         ButtonPressAnim = true;
     }
 
-    void EndButtonPress()
+    //the animation is playing
+    private void EndButtonPress()
     {
         ButtonPressAnim = false;
     }

@@ -16,6 +16,12 @@ public class ButtonLightSwitch : MonoBehaviour
 
     private void Update()
     {
+        LightState();
+    }
+
+    //to check if the light is on or off
+    private void LightState()
+    {
         if (_counter == 0)
         {
             _rend.sharedMaterial = Mat[0];
@@ -30,6 +36,7 @@ public class ButtonLightSwitch : MonoBehaviour
         }
     }
 
+    //to change the light color
     public void ChangeTexture()
     {
         _counter++;

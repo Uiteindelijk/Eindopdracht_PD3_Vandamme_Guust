@@ -11,61 +11,97 @@ public class EnemyAi : MonoBehaviour
     //to move charlie with nav mesh
     private NavMeshAgent _agent;
     private bool _npcIsMoving = false;
-    private Animator _anim;
 
     //player sees npc
-    [HideInInspector] public bool NpcIsSpotted = false;
+    public bool NpcIsSpotted { get; set; }
 
     //npc is running away
     public Transform[] Rooms;
     private int _counter;
     private float _distance;
     private bool _runningAway = false;
+    private bool _runAnim = false;
 
     //is player in same room as npc
-    [HideInInspector] public bool PlayerInRoom = false;
+    public bool PlayerInRoom { get; set; }
 
     //moving to player
     private Transform _player;
 
     //running away from player
     private bool _escape = false;
-    [HideInInspector] public bool StillInSameRoom = false;
+    public bool StillInSameRoom { get; set; }
 
     //player attack
     [SerializeField] private int _stabDamage;
+    private float _attackTimer;
+    public bool StabAnimIsPlaying { get; set; }
 
     //check room on npc
-    [HideInInspector] public bool AlreadyNpcInRoom = false;
+    public bool AlreadyNpcInRoom { get; set; }
 
     //check if room has been patrolled
-    [HideInInspector] public bool RoomChecked = false;
+    public bool RoomChecked { get; set; }
 
     //patrolling room
-    [HideInInspector] public Transform NextPatrolPoint;
+    public Transform NextPatrolPoint { get; set; }
 
     //npc is moving rooms
-    [HideInInspector] public bool NpcIsMovingRoom = false;
-    
+    public bool NpcIsMovingRoom { get; set; }
 
+    //npc lives
+    [SerializeField] private int _npcLives = 0;
+    private bool _npcIsDead = false;
+    
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _agent = transform.GetComponent<NavMeshAgent>();
-        _anim = transform.GetComponent<Animator>();
-
+        SetPublicVars();
+        ToAssignComponents();
+        
 #if DEBUG
 
         Assert.IsNotNull(_player, "The player doesn't contain the tag player");
         Assert.IsNotNull(_agent, "The npc: " + transform.name + " doesn't have a NavMeshAgent");
-        Assert.IsNotNull(_anim, "The npc: " + transform.name + " doesn't have a Animator");
 
 #endif
+        
+        NpcBehaviourTree();
+        StartCoroutine(RunTree());
+    }
 
-        //the behaviour tree
+    IEnumerator RunTree()
+    {
+        while (Application.isPlaying)
+        {
+            yield return _rootNode.Tick();
+        }
+    }
+    
+    //to set every public item
+    private void SetPublicVars()
+    {
+        NpcIsSpotted = false;
+        PlayerInRoom = false;
+        StillInSameRoom = false;
+        AlreadyNpcInRoom = false;
+        StabAnimIsPlaying = false;
+        RoomChecked = false;
+        NpcIsMovingRoom = false;
+        _attackTimer = 0.5f;
+    }
+    
+    //to find gameobjects for the enemy
+    private void ToAssignComponents()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _agent = transform.GetComponent<NavMeshAgent>();
+    }
+    
+    //the enemy behaviour tree
+    private void NpcBehaviourTree()
+    {
         _rootNode =
-
-
+            
                 new SelectorNode(
                     new SequenceNode(
                         new ConditionNode(NpcSpottedByPlayer),
@@ -85,24 +121,12 @@ public class EnemyAi : MonoBehaviour
                             new ActionNode(PatrollingRoom)),
                         new ActionNode(NpcMovesRoom)
                         ));
-                
-
-
-        StartCoroutine(RunTree());
-    }
-
-    IEnumerator RunTree()
-    {
-        while (Application.isPlaying)
-        {
-            yield return _rootNode.Tick();
-        }
     }
 
     //npc spotted
     public bool NpcSpottedByPlayer()
     {
-        if(_agent.remainingDistance < 3)
+        if(_agent.remainingDistance < 0.5f)
         {
             _counter =  Random.Range(0, Rooms.Length);
             _runningAway = false;
@@ -163,8 +187,8 @@ public class EnemyAi : MonoBehaviour
         if(!_runningAway && !_escape)
         {
             //Debug.Log("Moving to player");
-            _agent.SetDestination(new Vector3(_player.position.x - 0.5f, _player.position.y, _player.position.z ));
-            transform.LookAt(new Vector3(_player.position.x, transform.localRotation.y, _player.position.z));
+            _agent.SetDestination(new Vector3(_player.position.x + 1f, _player.position.y, _player.position.z));
+            transform.LookAt(new Vector3(_player.position.x, _player.position.y, _player.position.z));
             
 
             yield return NodeResult.Succes;
@@ -183,8 +207,8 @@ public class EnemyAi : MonoBehaviour
         {
             //kijken of er een object tussen de speler en enemy zit
             RaycastHit hit;
-            Debug.DrawRay(transform.position, transform.forward * 1f, Color.blue);
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.forward * 1f, Color.blue);
+            if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.forward, out hit, 1f))
             {
                 //Debug.Log("raycast is hitting: " + hit.transform.name);
                 if (hit.transform.tag == "Player" && !_escape)
@@ -206,26 +230,36 @@ public class EnemyAi : MonoBehaviour
     //attacks the player
     IEnumerator<NodeResult> NpcAttacksPlayer()
     {
-        //Debug.Log("Player got stabbed");
-        _player.GetComponent<New>().RecivingTheStab(_stabDamage);
-        _escape = true;
-        StillInSameRoom = true;
+        _attackTimer -= Time.deltaTime;
 
+        if (_attackTimer <= 0)
+        {
+            //Debug.Log("Player got stabbed");
+            _player.GetComponent<PlayerMovement>().RecivingTheStab(_stabDamage);
+            
+            _escape = true;
+            StillInSameRoom = true;
+        }
+        if (_attackTimer > 0.45f)
+        {
+            transform.GetComponent<EnemyAnimations>().NpcStabsPlayer();
+        }
 
-        yield return NodeResult.Succes;
+        yield return NodeResult.Running;
+        
     }
 
     //runs away after attacking the player
     IEnumerator<NodeResult> NpcRetreats()
     {
+
         //Debug.Log("Retreating from player");
         _agent.SetDestination(Rooms[_counter].position);
-
         _distance = Vector3.Distance(_agent.transform.position, Rooms[_counter].position);
-        
+
 
         yield return NodeResult.Succes;
-        
+
     }
 
     //check if there is already an npc in the room
@@ -251,12 +285,12 @@ public class EnemyAi : MonoBehaviour
     {
         if(RoomChecked)
         {
-            Debug.Log("room has been checked");
+            //Debug.Log("room has been checked");
             return false;
         }
         else
         {
-            Debug.Log("room hasn't been checked yet");
+            //Debug.Log("room hasn't been checked yet");
             return true;
         }
     }
@@ -266,14 +300,14 @@ public class EnemyAi : MonoBehaviour
     {
         if(NextPatrolPoint != null && !RoomChecked && !PlayerInRoom && !_runningAway)
         {
-            Debug.Log("Patrolling room");
+            //Debug.Log("Moving to patrolpoint: " + NextPatrolPoint.name);
             _agent.SetDestination(NextPatrolPoint.position);
 
             yield return NodeResult.Succes;
         }
         else
         {
-            Debug.Log("No next patrol point");
+            //Debug.Log("No next patrol point");
             yield return NodeResult.Failure;
         }
         
@@ -284,9 +318,9 @@ public class EnemyAi : MonoBehaviour
     {
         if (!PlayerInRoom)
         {
-            Debug.Log("Moving Room");
             NpcIsMovingRoom = true;
             _agent.SetDestination(Rooms[_counter].position);
+            //Debug.Log("Moving Room" + _agent.SetDestination(Rooms[_counter].position));
 
             yield return NodeResult.Succes;
         }
@@ -297,5 +331,26 @@ public class EnemyAi : MonoBehaviour
 
 
     }
+    
+    //if the npc dies
+    public void NpcRecivesDamage(int Damage)
+    {
+        _npcLives -= Damage;
 
+        if(_npcLives <= 0)
+        {
+            _agent.Stop();
+            transform.GetComponent<EnemyAnimations>().NpcDies();
+        }
+
+    }
+    
+    //if the player dies
+    public void PlayerDied()
+    {
+        Debug.Log("The Player is Gone!");
+        _agent.Stop();
+        transform.GetComponent<EnemyAnimations>().PlayerIsDead();
+    }
+    
 }

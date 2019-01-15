@@ -193,18 +193,18 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.67415726
-        functionName: EndButtonPress
+      - time: 0
+        functionName: StartButtonPress
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 27c0a202d7078484386b9bbdf33c6616,
+        objectReferenceParameter: {fileID: 11500000, guid: a7217bb7ddc4d2c40bd90e64a626d452,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: StartButtonPress
+      - time: 0.8922489
+        functionName: EndButtonPress
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 27c0a202d7078484386b9bbdf33c6616,
+        objectReferenceParameter: {fileID: 11500000, guid: a7217bb7ddc4d2c40bd90e64a626d452,
           type: 3}
         floatParameter: 0
         intParameter: 0

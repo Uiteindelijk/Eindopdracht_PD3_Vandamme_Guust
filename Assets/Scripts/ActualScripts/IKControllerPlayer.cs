@@ -17,7 +17,6 @@ public class IKControllerPlayer : StateMachineBehaviour
         //to let the limb go to the position you want
         animator.SetIKPosition(AvatarIKGoal.LeftHand, IkTargetLeftHand.position);
         animator.SetIKPosition(AvatarIKGoal.RightHand, IkTargetRightHand.position);
-        
     }
     
 }
