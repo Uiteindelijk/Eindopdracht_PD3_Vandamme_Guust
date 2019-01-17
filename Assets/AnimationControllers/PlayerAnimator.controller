@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1751f86060d059b49b1055de7c61a17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoxTargetRight: {fileID: 0}
-  BoxTargetLeft: {fileID: 0}
+  _leftRay: {fileID: 0}
+  _rightRay: {fileID: 0}
 --- !u!114 &114497785306870526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,9 +255,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.006500423
-  m_TransitionOffset: 0
-  m_ExitTime: 0.69758064
+  m_TransitionDuration: 0.065899976
+  m_TransitionOffset: 0.00761123
+  m_ExitTime: 0.055492084
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -372,9 +372,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.13411307
+  m_TransitionDuration: 0.2536341
   m_TransitionOffset: 0
-  m_ExitTime: 0.0000000069005157
+  m_ExitTime: 0.00000000750893
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -468,9 +468,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.7291245
-  m_TransitionOffset: 0
-  m_ExitTime: 3.2393793e-10
+  m_TransitionDuration: 0.5586162
+  m_TransitionOffset: 0.07252972
+  m_ExitTime: 0.17588429
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
