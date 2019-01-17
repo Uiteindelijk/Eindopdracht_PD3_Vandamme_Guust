@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
     //to set the ik of the hands
     private void InverseKinematicsHands()
     {
+        //for more information check document
         _ikPlayer.IkTargetLeftHand = _ikTargetLeftHand;
         _ikPlayer.IkTargetRightHand = _ikTargetRightHand;
     }
@@ -248,6 +249,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_movingABox && _boxDistance > 1.4f && _boxDistance < 11.8f)
         {
+            //for more information check document
             DropBox();
         }
     }
@@ -255,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
     //player grabs box
     private void GrabBox()
     {
-        //to grab a box and move it
+        //for more information check document
         RaycastHit hit;
         if (Physics.Raycast(_boxRayLeft.transform.position, _boxRayLeft.transform.forward, out hit, _boxRayRange) &&
             Physics.Raycast(_boxRayRight.transform.position, _boxRayRight.transform.forward, out hit, _boxRayRange))
@@ -303,6 +305,7 @@ public class PlayerMovement : MonoBehaviour
     //when player is looking over shoulder
     private void LookingOverShoulder()
     {
+        //for more information check document
         //Debug.Log("Looking over Schoulder");
         _rotationSpeed = _normalRotateSpeed;
         _inputForBack = 0;
@@ -330,6 +333,7 @@ public class PlayerMovement : MonoBehaviour
     //when button actual gets pressed
     private void PressButton()
     {
+        //for more information check document
         RaycastHit hit;
         if (Physics.Raycast(_buttonRayStart.transform.position, _buttonRayStart.transform.forward, out hit, _buttonRayRange))
         {
@@ -340,7 +344,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     button.ButtonPressed();
                     _inputForBack = 0;
-                    _inputForBack = 0;
+                    _inputLeftRight = 0;
                     _buttonIK.ButtonTarget = button.transform;
                     _isButtonPressed = true;
                 }

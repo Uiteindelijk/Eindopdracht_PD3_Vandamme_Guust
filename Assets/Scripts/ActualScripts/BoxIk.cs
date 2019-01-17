@@ -12,6 +12,8 @@ public class BoxIk : StateMachineBehaviour
     // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
     override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //for more information check document
+
         CheckRay(_leftRay, AvatarIKGoal.LeftHand, animator);
         CheckRay(_rightRay, AvatarIKGoal.RightHand, animator);
     }

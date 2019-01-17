@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlaceBoxOnRightPlace : MonoBehaviour
 {
+    //for more information check document
+
     private Transform _platform, _box, _lamp;
     private float _enableDistance, _distance, _counter = 0;
     public bool _boxOnPlace { get; set; }

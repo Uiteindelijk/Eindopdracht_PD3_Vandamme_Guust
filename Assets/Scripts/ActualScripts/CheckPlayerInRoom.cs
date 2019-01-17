@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CheckPlayerInRoom : MonoBehaviour
 {
+    //for more information check document
+
     //vars to check if there is an npc or player
     private bool _playerIsInRoom = false, _npcIsInRoom = false;
     private Transform _player, _npc;

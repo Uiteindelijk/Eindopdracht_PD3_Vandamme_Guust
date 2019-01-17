@@ -10,6 +10,8 @@ public class IKControllerPlayer : StateMachineBehaviour
 
     public override void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //for more information check document
+
         //to set how much the limb is following to the target
         animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, IkWeight);
         animator.SetIKPositionWeight(AvatarIKGoal.RightHand, IkWeight);

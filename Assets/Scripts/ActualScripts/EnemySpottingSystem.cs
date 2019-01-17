@@ -26,6 +26,7 @@ public class EnemySpottingSystem : MonoBehaviour
     //to check if the enemy is in eye sight
     private void OnTriggerStay(Collider other)
     {
+        //for more information check document
         if (other.tag == "Enemy")
         {
             _enemyInSight = false;
